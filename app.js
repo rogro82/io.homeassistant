@@ -29,13 +29,13 @@ class App extends Homey.App {
 		return this._client;
 	}
 
-	_reconnectClient() {
+	_reconnectClient(arg) {
 		console.log("settings updated.... reconnecting");
 
 		let address = Homey.ManagerSettings.get("address");
 		let token = Homey.ManagerSettings.get("token");
 
-		this._client.connect(address, token);
+		this._client.connect(address, token, true);
 	}
 
 	_onFlowActionCallService(args) {
