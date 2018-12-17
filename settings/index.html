@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+
+        <!-- The '/homey.js' script must be included in your settings view to work -->
+        <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+
+    </head>
+    <body>
+
+        <h1 data-i18n="settings.title">
+        </h1>
+        <p data-i18n="settings.subtitle">
+        </p>
+
+        <fieldset>
+            <legend>Connection</legend>
+
+            <div class="field row">
+                <label for="address">Address</label>
+                <input id="address" type="text" value="" placeholder="http://your_ip:8123" />
+            </div>
+            <div class="field row">
+                <label for="token">Access token</label>
+                <input id="token" type="text" value="" />
+            </div>
+
+        </fieldset>
+
+        <button id="save" class="right">Save changes</button>
+
+        <script type="text/javascript">
+
+        function onHomeyReady( Homey ){
+            Homey.ready();
+
+            var addressElement = document.getElementById('address');
+            var tokenElement = document.getElementById('token');
+            var saveElement = document.getElementById('save');
+
+            Homey.get('address', function( err, address ) {
+               if( err ) return Homey.alert( err );
+               addressElement.value = address;
+            });
+
+            Homey.get('token', function( err, token ) {
+               if( err ) return Homey.alert( err );
+               tokenElement.value = token;
+            });
+
+            saveElement.addEventListener('click', function(e) {
+
+                Homey.set('address', addressElement.value, function( err ){
+                    if( err ) return Homey.alert( err );
+                });
+                Homey.set('token', tokenElement.value, function( err ){
+                    if( err ) return Homey.alert( err );
+                });
+
+            });
+        }
+        </script>
+
+    </body>
+</html>

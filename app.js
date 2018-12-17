@@ -8,12 +8,12 @@ class App extends Homey.App {
 	onInit() {
 		this.log('Home-Assistant is running...');
 
-
-		// TODO: add settings :)
+		let address = Homey.ManagerSettings.get("address");
+		let token = Homey.ManagerSettings.get("token");
 
 		this._client = new Client(
-			"http://your_ip:8123", 
-			"your_access_token"
+			address, 
+			token
 		);
 
 		this._onFlowActionCallService = this._onFlowActionCallService.bind(this);
@@ -21,12 +21,21 @@ class App extends Homey.App {
 		new Homey.FlowCardAction('callService')
 			.register()
 			.registerRunListener( this._onFlowActionCallService );
-			// .getArgument('scene')
 
+		Homey.ManagerSettings.on("set", this._reconnectClient.bind(this));
 	}
 
 	getClient() {
 		return this._client;
+	}
+
+	_reconnectClient() {
+		console.log("settings updated.... reconnecting");
+
+		let address = Homey.ManagerSettings.get("address");
+		let token = Homey.ManagerSettings.get("token");
+
+		this._client.connect(address, token);
 	}
 
 	_onFlowActionCallService(args) {
