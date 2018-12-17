@@ -8,16 +8,30 @@ class App extends Homey.App {
 	onInit() {
 		this.log('Home-Assistant is running...');
 
+
+		// TODO: add settings :)
+
 		this._client = new Client(
-			"http://192.168.1.2:8123", 
-			"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIzYWRiZmYwMTRjYTQ0MTVlYTA2M2UxMjEyYzMyZjZjMSIsImlhdCI6MTU0NDkyMzQxNSwiZXhwIjoxODYwMjgzNDE1fQ.e_ril9nEr6jfZRxaw1r3gh2-jNojRFsuf5ybuhhCSgw"
+			"http://your_ip:8123", 
+			"your_access_token"
 		);
+
+		this._onFlowActionCallService = this._onFlowActionCallService.bind(this);
+
+		new Homey.FlowCardAction('callService')
+			.register()
+			.registerRunListener( this._onFlowActionCallService );
+			// .getArgument('scene')
+
 	}
 
 	getClient() {
 		return this._client;
 	}
-	
+
+	_onFlowActionCallService(args) {
+		this._client.callService(args.domain, args.service, args.data);
+	}
 }
 
 module.exports = App;

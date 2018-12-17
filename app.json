@@ -323,5 +323,30 @@
         }
       ]
     }
-  ]
+  ],
+  "flow": {
+    "actions": [
+      {
+				"id": "callService",
+				"title": {
+					"en": "Call service",
+					"nl": "Roep service aan"
+				},
+				"args": [
+					{
+						"name": "domain",
+						"type": "text"
+          },
+          {
+						"name": "service",
+						"type": "text"
+          },
+          {
+						"name": "data",
+						"type": "text"
+					}
+				]
+			}
+    ]
+  }
 }
