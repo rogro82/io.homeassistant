@@ -9,6 +9,7 @@ class CompoundDevice extends Homey.Device {
 
         this.entityId = this.getData().id;
         this.capabilities = this.getCapabilities();
+        this.capabilityMapping = this.getData().capabilities;
 
         this.log('device init');
         this.log('id:', this.entityId);
@@ -16,6 +17,11 @@ class CompoundDevice extends Homey.Device {
         this.log('class:', this.getClass());
 
         this._client.registerDevice(this.entityId, this);
+
+        if(this.hasCapability("button")) {
+            this.log("attach button listener");
+            this.registerCapabilityListener('button', this.onCapabilityButton.bind(this))
+        }
     }
 
     onAdded() {
@@ -29,10 +35,9 @@ class CompoundDevice extends Homey.Device {
 
     onEntityUpdate(data) {
         let entityId = data.entity_id;
-        let capabilities = this.getData().capabilities;
 
-        Object.keys(capabilities).forEach(key => {
-            if(capabilities[key] == entityId) {
+        Object.keys(this.capabilityMapping).forEach(key => {
+            if(this.capabilityMapping[key] == entityId) {
 
                 console.log("---------------------------------------------------------------");
                 console.log("update compound device:", this.entityId);
@@ -54,8 +59,13 @@ class CompoundDevice extends Homey.Device {
         });
     }
 
+    onCapabilityButton( value, opts, callback ) {
+        this._client.turnOnOff(this.capabilityMapping["button"], true);
+        callback( null );
+    }
+
+
     onCapabilityOnoff( value, opts, callback ) {
-        // TODO: implement switch/dim/slider etc
     }
 }
 
