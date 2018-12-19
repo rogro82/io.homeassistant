@@ -1,0 +1,10 @@
+homey:
+  livingroom_sensor:
+    name: Livingroom environment
+    capabilities:
+      measure_temperature: sensor.livingroom_temperature
+      measure_humidity: sensor.livingroom_humidity
+      measure_luminance: sensor.livingroom_luminance
+      alarm_motion: binary_sensor.livingroom_motion
+      alarm_contact: binary_sensor.toilet_door
+
