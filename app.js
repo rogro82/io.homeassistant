@@ -6,15 +6,17 @@ const Client = require('./lib/Client.js');
 class App extends Homey.App {
 	
 	onInit() {
+		super.onInit();
+
 		this.log('Home-Assistant is running...');
 
 		let address = Homey.ManagerSettings.get("address");
 		let token = Homey.ManagerSettings.get("token");
 
-		this._client = new Client(
-			address, 
-			token
-		);
+		this._client = new Client(address, token)
+			.on("connection_update", (state) => {
+				Homey.ManagerApi.realtime('connection_update', state);
+			});
 
 		this._onFlowActionCallService = this._onFlowActionCallService.bind(this);
 

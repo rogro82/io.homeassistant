@@ -43,7 +43,7 @@ class SensorDevice extends Homey.Device {
             }
 
         } catch(ex) {
-            console.log("error", ex);
+            this.log("error", ex);
         }
     }
 }

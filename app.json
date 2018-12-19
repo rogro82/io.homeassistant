@@ -219,35 +219,6 @@
         "large": "drivers/bulb/assets/images/large.jpg",
         "small": "drivers/bulb/assets/images/small.jpg"
       },      
-      "mobile": {
-        "components": [
-          {
-            "id": "sensor",
-            "capabilities": [
-              "measure_generic",
-              "measure_battery",
-              "measure_co",
-              "measure_co2",
-              "measure_current",
-              "measure_gust_angle",
-              "measure_gust_strength",
-              "measure_humidity",
-              "measure_luminance",
-              "measure_noise",
-              "measure_pm25",
-              "measure_power",
-              "measure_pressure",
-              "measure_rain",
-              "measure_temperature",
-              "measure_ultraviolet",
-              "measure_voltage",
-              "measure_water",
-              "measure_wind_angle",
-              "measure_wind_strength"
-            ]
-          }
-        ]
-      },
       "pair": [
         {
           "id": "list_devices",
@@ -288,27 +259,66 @@
         "large": "drivers/bulb/assets/images/large.jpg",
         "small": "drivers/bulb/assets/images/small.jpg"
       },      
-      "mobile": {
-        "components": [
-          {
-            "id": "icon"
-          },
-          {
-            "id": "sensor",
-            "capabilities": [
-              "alarm_battery",
-              "alarm_co",
-              "alarm_co2",
-              "alarm_fire",
-              "alarm_heat",
-              "alarm_pm25",
-              "alarm_smoke",
-              "alarm_tamper",
-              "alarm_water"
-            ]
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
           }
-        ]
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "compound",
+      "name": {
+        "en": "Compound",
+        "nl": "Samengesteld"
       },
+      "class": "sensor",
+      "capabilities": [
+        "onoff",
+        "alarm_battery",
+        "alarm_co",
+        "alarm_co2",
+        "alarm_contact",
+        "alarm_fire",
+        "alarm_generic",
+        "alarm_heat",
+        "alarm_motion",
+        "alarm_pm25",
+        "alarm_smoke",
+        "alarm_tamper",
+        "alarm_water",
+        "measure_generic",
+        "measure_battery",
+        "measure_co",
+        "measure_co2",
+        "measure_current",
+        "measure_gust_angle",
+        "measure_gust_strength",
+        "measure_humidity",
+        "measure_luminance",
+        "measure_noise",
+        "measure_pm25",
+        "measure_power",
+        "measure_pressure",
+        "measure_rain",
+        "measure_temperature",
+        "measure_ultraviolet",
+        "measure_voltage",
+        "measure_water",
+        "measure_wind_angle",
+        "measure_wind_strength"
+      ],
+      "images": {
+        "large": "drivers/bulb/assets/images/large.jpg",
+        "small": "drivers/bulb/assets/images/small.jpg"
+      },      
       "pair": [
         {
           "id": "list_devices",

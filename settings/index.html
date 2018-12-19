@@ -5,17 +5,19 @@
         <!-- The '/homey.js' script must be included in your settings view to work -->
         <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 
+        <style type="text/css">
+            #state, .label_success, .label_failure { display: none; }
+            #state.success, #state.success .label_success { display: block; }
+            #state.failure, #state.failure .label_failure { display: block; }
+            .label_success { color: green; }
+            .label_failure { color: red; }
+        </style>
+
     </head>
     <body>
 
-        <h1 data-i18n="settings.title">
-        </h1>
-        <p data-i18n="settings.subtitle">
-        </p>
-
         <fieldset>
-            <legend>Connection</legend>
-
+            <legend>Connection settings</legend>
             <div class="field row">
                 <label for="address">Address</label>
                 <input id="address" type="text" value="" placeholder="http://your_ip:8123" />
@@ -24,19 +26,33 @@
                 <label for="token">Access token</label>
                 <input id="token" type="text" value="" />
             </div>
+        </fieldset>
 
+        <fieldset id="state">
+            <legend>Connection state</legend>
+            <div class="field row">
+                <div class="label_failure">Failed to connect...</div>
+                <div class="label_success">Successfully connected</div>
+            </div>
         </fieldset>
 
         <button id="save" class="right">Save changes</button>
 
         <script type="text/javascript">
 
-        function onHomeyReady( Homey ){
-            Homey.ready();
+        function setState(connected) {
+            var stateElement = document.getElementById('state');
+            stateElement.className = connected ? "success" : "failure";
+        }
 
+        function onHomeyReady( Homey ){
             var addressElement = document.getElementById('address');
             var tokenElement = document.getElementById('token');
             var saveElement = document.getElementById('save');
+
+            Homey.on("connection_update", function(state) {
+                setState(state.connected);
+            });
 
             Homey.get('address', function( err, address ) {
                if( err ) return Homey.alert( err );
@@ -58,6 +74,8 @@
                 });
 
             });
+
+            Homey.ready();
         }
         </script>
 

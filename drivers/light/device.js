@@ -56,9 +56,6 @@ class LightDevice extends Homey.Device {
     }
 
     _onCapabilitiesSet(valueObj, optsObj, callback) {
-        console.log("---------- light set ------------")
-        console.log(valueObj);
-
         if( typeof valueObj.dim === 'number' ) {
 			valueObj.onoff = valueObj.dim > 0;	
 		}
@@ -115,14 +112,9 @@ class LightDevice extends Homey.Device {
             }
 
             if(lightModeUpdate && this.hasCapability("light_mode")) {
-                console.log("lightModeUpdate:", lightModeUpdate);
-
                 this.setCapabilityValue("light_mode", lightModeUpdate);
             }
         }
-
-        console.log("on:", lightOn)
-        console.log("data:", data);
 
         this._client.updateLight(lightOn, data);
 
@@ -130,9 +122,6 @@ class LightDevice extends Homey.Device {
     }
 
     onEntityUpdate(data) {
-        console.log("---------- light get ------------")
-        console.log(data);
-
         if(data) {
 
             this._minMireds = data.attributes["min_mireds"] || 0;
@@ -175,8 +164,7 @@ class LightDevice extends Homey.Device {
     
                 if(hasLightMode) {
                     let light_mode = hs ? "color" : "temperature";
-                    console.log("light_mode:", light_mode);
-
+                    
                     this.setCapabilityValue("light_mode", hs ? "color" : "temperature");
                 }
             }
