@@ -16,12 +16,14 @@ DOMAIN = 'homey'
 ENTITY_ID_FORMAT = DOMAIN + '.{}'
 
 CONF_CAPABILITIES = "capabilities"
+CONF_CAPABILITIES_CONVERTERS = "capabilitiesConverters"
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
         cv.slug: vol.Any({
             vol.Optional(CONF_NAME): cv.string,
-            vol.Optional(CONF_CAPABILITIES): dict
+            vol.Optional(CONF_CAPABILITIES): dict,
+            vol.Optional(CONF_CAPABILITIES_CONVERTERS): dict
         }, None)
     })
 }, extra=vol.ALLOW_EXTRA)
@@ -39,8 +41,9 @@ def async_setup(hass, config):
 
         name = device_config.get(CONF_NAME)
         capabilities = device_config.get(CONF_CAPABILITIES)
+        capabilitiesConverters = device_config.get(CONF_CAPABILITIES_CONVERTERS)
 
-        devices.append(Device(device_id, name, capabilities))
+        devices.append(Device(device_id, name, capabilities, capabilitiesConverters))
 
     yield from component.async_add_entities(devices)
     return True
@@ -48,11 +51,12 @@ def async_setup(hass, config):
 class Device(Entity):
     """Representation of a homey device."""
 
-    def __init__(self, device_id, name, capabilities):
+    def __init__(self, device_id, name, capabilities, capabilitiesConverters):
         """Initialize a homey device."""
         self.entity_id = ENTITY_ID_FORMAT.format(device_id)
         self._name = name
         self._capabilities = capabilities
+        self._capabilitiesConverters = capabilitiesConverters
 
     @asyncio.coroutine
     def async_added_to_hass(self):
@@ -83,5 +87,6 @@ class Device(Entity):
     def state_attributes(self):
         """Return the state attributes."""
         return {
-            "capabilities": self._capabilities
+            "capabilities": self._capabilities,
+            "capabilitiesConverters": self._capabilitiesConverters
         }

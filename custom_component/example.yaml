@@ -7,4 +7,13 @@ homey:
       measure_luminance: sensor.livingroom_luminance
       alarm_motion: binary_sensor.livingroom_motion
       alarm_contact: binary_sensor.toilet_door
-
+      button: script.test
+      onoff: switch.ventilation
+      dim: input_number.test_slider
+    capabilitiesConverters:
+      measure_temperature: 
+        from: (state) => { return parseFloat(state) * 2; }
+        to: (value) => { return value / 2; }
+      dim: 
+        from: (state) => { return parseFloat(state) * 0.01; }
+        to: (value) => { return value * 100; }
