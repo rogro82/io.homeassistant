@@ -22,6 +22,11 @@ class CompoundDevice extends Homey.Device {
             this.log("attach button listener");
             this.registerCapabilityListener('button', this.onCapabilityButton.bind(this))
         }
+
+        if(this.hasCapability("onoff")) {
+            this.log("attach onoff listener");
+            this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this))
+        }
     }
 
     onAdded() {
@@ -52,6 +57,7 @@ class CompoundDevice extends Homey.Device {
                         break;
                     case "alarm_motion":
                     case "alarm_contact":
+                    case "onoff":
                         this.setCapabilityValue(key, data.state == "on");
                         break;
                 }
@@ -66,7 +72,10 @@ class CompoundDevice extends Homey.Device {
 
 
     onCapabilityOnoff( value, opts, callback ) {
+        this._client.turnOnOff(this.capabilityMapping["onoff"], value);
+        callback( null );
     }
+
 }
 
 module.exports = CompoundDevice;
