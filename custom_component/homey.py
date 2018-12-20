@@ -15,6 +15,7 @@ _LOGGER = logging.getLogger(__name__)
 DOMAIN = 'homey'
 ENTITY_ID_FORMAT = DOMAIN + '.{}'
 
+CONF_ICON = "icon"
 CONF_CAPABILITIES = "capabilities"
 CONF_CAPABILITIES_CONVERTERS = "capabilitiesConverters"
 
@@ -22,6 +23,7 @@ CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
         cv.slug: vol.Any({
             vol.Optional(CONF_NAME): cv.string,
+            vol.Optional(CONF_ICON): cv.string,
             vol.Optional(CONF_CAPABILITIES): dict,
             vol.Optional(CONF_CAPABILITIES_CONVERTERS): dict
         }, None)
@@ -40,10 +42,11 @@ def async_setup(hass, config):
             device_config = {}
 
         name = device_config.get(CONF_NAME)
+        icon = device_config.get(CONF_ICON)
         capabilities = device_config.get(CONF_CAPABILITIES)
         capabilitiesConverters = device_config.get(CONF_CAPABILITIES_CONVERTERS)
 
-        devices.append(Device(device_id, name, capabilities, capabilitiesConverters))
+        devices.append(Device(device_id, name, icon, capabilities, capabilitiesConverters))
 
     yield from component.async_add_entities(devices)
     return True
@@ -51,10 +54,11 @@ def async_setup(hass, config):
 class Device(Entity):
     """Representation of a homey device."""
 
-    def __init__(self, device_id, name, capabilities, capabilitiesConverters):
+    def __init__(self, device_id, name, icon, capabilities, capabilitiesConverters):
         """Initialize a homey device."""
         self.entity_id = ENTITY_ID_FORMAT.format(device_id)
         self._name = name
+        self._icon = icon
         self._capabilities = capabilities
         self._capabilitiesConverters = capabilitiesConverters
 
@@ -81,12 +85,13 @@ class Device(Entity):
     @property
     def state(self):
         """Return the state of the component."""
-        return "-"
+        return ""
 
     @property
     def state_attributes(self):
         """Return the state attributes."""
         return {
+            "icon": self._icon,
             "capabilities": self._capabilities,
             "capabilitiesConverters": self._capabilitiesConverters
         }
