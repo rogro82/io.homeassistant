@@ -38,6 +38,15 @@
       },
       "getable": true,
       "setable": false
+    },
+    "measure_numeric": {
+      "type": "number",
+      "title": {
+          "nl": "Waarde",
+          "en": "Value"
+      },
+      "getable": true,
+      "setable": false
     }
   },
   "drivers": [
@@ -195,6 +204,7 @@
       "class": "sensor",
       "capabilities": [
         "measure_generic",
+        "measure_numeric",
         "measure_battery",
         "measure_co",
         "measure_co2",
@@ -296,6 +306,7 @@
         "alarm_tamper",
         "alarm_water",
         "measure_generic",
+        "measure_numeric",
         "measure_battery",
         "measure_co",
         "measure_co2",
