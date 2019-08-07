@@ -1,0 +1,10 @@
+{
+    "domain": "homey",
+    "name": "homey",
+    "documentation": "https://github.com/rogro82/io.homeassistant",
+    "requirements": [],
+    "dependencies": [],
+    "codeowners": [
+        "@rogro82"
+    ]
+}

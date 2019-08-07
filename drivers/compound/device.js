@@ -37,6 +37,10 @@ class CompoundDevice extends Homey.Device {
             this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this))
         }
 
+        if(this.hasCapability("locked")) {
+            this.registerCapabilityListener('locked', this.onCapabilityLocked.bind(this))
+        }
+
         if(this.hasCapability("dim")) {
             console.log("attach dim listener");
             this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this))
@@ -117,6 +121,12 @@ class CompoundDevice extends Homey.Device {
 
     onCapabilityOnoff( value, opts, callback ) {
         this._client.turnOnOff(this.compoundCapabilities["onoff"], value);
+        callback( null );
+    }
+
+    onCapabilityLocked( value, opts, callback ) {
+        console.log("onCapabilityLocked", value);
+        this._client.turnOnOff(this.compoundCapabilities["locked"], value);
         callback( null );
     }
 

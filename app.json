@@ -282,6 +282,7 @@
       "class": "sensor",
       "capabilities": [
         "onoff",
+        "locked",
         "alarm_battery",
         "alarm_co",
         "alarm_co2",
