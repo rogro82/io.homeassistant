@@ -9,6 +9,7 @@
   },
   "description": {
     "en": "Connect to Home Assistant",
+    "de": "Mit Home Assistant verbinden",
     "nl": "Koppelen met Home Assitant"
   },
   "category": [
@@ -34,6 +35,7 @@
       "type": "string",
       "title": {
           "nl": "Waarde",
+          "de": "Wert",
           "en": "Value"
       },
       "getable": true,
@@ -43,6 +45,7 @@
       "type": "number",
       "title": {
           "nl": "Waarde",
+          "de": "Wert",
           "en": "Value"
       },
       "getable": true,
@@ -54,6 +57,7 @@
       "id": "light",
       "name": {
         "en": "Light",
+        "de": "Licht",
         "nl": "Lamp"
       },
       "class": "light",
@@ -108,6 +112,7 @@
       "id": "scene",
       "name": {
         "en": "Scene",
+        "de": "Szene",
         "nl": "Scene"
       },
       "class": "button",
@@ -136,6 +141,7 @@
       "id": "script",
       "name": {
         "en": "Script",
+        "de": "Skript",
         "nl": "Script"
       },
       "class": "button",
@@ -164,6 +170,7 @@
       "id": "switch",
       "name": {
         "en": "Switch",
+        "de": "Schalter",
         "nl": "Schakelaar"
       },
       "class": "socket",
@@ -199,6 +206,7 @@
       "id": "sensor",
       "name": {
         "en": "Sensor",
+        "de": "Sensor",
         "nl": "Sensor"
       },
       "class": "sensor",
@@ -247,6 +255,7 @@
       "id": "binary_sensor",
       "name": {
         "en": "Binary sensor",
+        "de": "Binärsensor",
         "nl": "Binaire sensor"
       },
       "class": "sensor",
@@ -287,6 +296,7 @@
       "id": "compound",
       "name": {
         "en": "Compound",
+        "de": "Zusammmenstellung",
         "nl": "Samengesteld"
       },
       "class": "sensor",
