@@ -1,4 +1,4 @@
-# Home-Assistant integation for Homey by Athom
+# Home-Assistant integration for Homey by Athom
 
 This application allows you to add your home-assistant (http://home-assistant.io) devices to your Homey.
 
@@ -13,6 +13,7 @@ This application allows you to add your home-assistant (http://home-assistant.io
 - light
 - scenes
 - scripts
+- input_boolean
 
 ## Getting started
 To connect the application to your home-assistant instance you will need to create a `Long Lived Access Token` in home-assistant. You can create a token on your home-assistant account profile page (https://www.home-assistant.io/docs/authentication/).
